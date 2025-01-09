@@ -1,0 +1,27 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+.flex {
+  display: flex;
+}
+
+.x-flex {
+  @extend .flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cp {
+  cursor: pointer;
+}
+
+// 临时用antd 自定义主题样式覆盖
+.custom-theme {
+
+  .ant-menu,
+  .ant-menu.ant-menu-inline .ant-menu-sub.ant-menu-inline {
+    background-color: unset;
+  }
+}

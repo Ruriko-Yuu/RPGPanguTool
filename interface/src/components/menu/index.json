@@ -1,0 +1,21 @@
+[
+  {
+    "title": "菜单1",
+    "key": "menu1",
+    "ico": null,
+    "children": [
+      {
+        "title": "菜单1-1",
+        "key": "menu1-1",
+        "ico": null,
+        "children": [
+          {
+            "title": "地图1-1-1",
+            "key": "menu1-1-1",
+            "ico": null
+          }
+        ]
+      }
+    ]
+  }
+]
