@@ -9,6 +9,7 @@ const useElectronMenuStore: UseBoundStore<StoreApi<any>> = create(persist((set) 
         router: '/'
       },
     ],
+    fullScreen: false,
     tabActive: 0,
     newTab: (obj: { title: string, router: string }) => set((state: any) => {
       return {
@@ -18,6 +19,7 @@ const useElectronMenuStore: UseBoundStore<StoreApi<any>> = create(persist((set) 
         tabActive: state.tabList.length
       }
     }),
+    setFullScreen: (value: boolean) => set((state: any) => ({ fullScreen: value })),
     setTabActive: (value: number) => set((state: any) => ({
       tabActive: value
     })),

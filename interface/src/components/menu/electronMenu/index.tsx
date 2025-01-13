@@ -4,9 +4,9 @@ import "./index.scss";
 import { useElectronMenuStore } from "../../../../store/useElectronMenu";
 import { Link, useNavigate } from "react-router-dom";
 const ElectronMenu = memo(() => {
-	const [fullScreen, setFullScreen] = useState(false);
 	const tabList = useElectronMenuStore((state: any) => state.tabList);
 	const tabActive = useElectronMenuStore((state: any) => state.tabActive);
+	const fullScreen = useElectronMenuStore((state: any) => state.fullScreen);
 	const navigate = useNavigate();
 	/**
 	 * 无系统菜单栏时拖拽内置菜单栏窗口
@@ -40,11 +40,11 @@ const ElectronMenu = memo(() => {
 	useEffect(() => {
 		const fullscreenReply = (event: any, arg: any) => {
 			console.log("fullscreen-reply");
-			setFullScreen(true);
+			useElectronMenuStore.getState().setFullScreen(true);
 		};
 		const unFullscreenReply = (event: any, arg: any) => {
 			console.log("unFullscreen-reply");
-			setFullScreen(false);
+			useElectronMenuStore.getState().setFullScreen(false);
 		};
 		window.Electron.ipcRenderer.on("fullscreen-reply", fullscreenReply);
 		window.Electron.ipcRenderer.on("unFullscreen-reply", unFullscreenReply);
@@ -79,7 +79,10 @@ const ElectronMenu = memo(() => {
 									if (useElectronMenuStore.getState().tabActive === idx) {
 										useElectronMenuStore.getState().setTabActive(idx - 1);
 										navigate(tabList[idx - 1].router);
-									}
+                  }
+                  if (idx < useElectronMenuStore.getState().tabActive) {
+                    useElectronMenuStore.getState().setTabActive(useElectronMenuStore.getState().tabActive - 1);
+                  }
                   useElectronMenuStore.getState().delTab(idx);
 									console.log(useElectronMenuStore.getState().tabList);
 								}}
