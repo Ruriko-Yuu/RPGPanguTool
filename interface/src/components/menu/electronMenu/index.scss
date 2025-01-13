@@ -1,37 +1,106 @@
 #electron-menu {
-  position: relative;
-  display: flex;
-  .drag-area {
-    width: 100%;
-    height: 100%;
-    cursor: grab;
-  }
+	position: relative;
+	display: flex;
+	.drag-area {
+		width: 100%;
+		height: 100%;
+		cursor: grab;
+	}
+	.tab-space {
+		max-width: calc(100% - 220px);
+		overflow-x: auto;
+		display: flex;
+		margin-right: 220px;
+		position: absolute;
+		bottom: 0;
+		left: 10px;
+		background: linear-gradient(to bottom, #ffffff, #ffffff, #f4f4f4, #f4f4f4);
+		.tab-item {
+			flex: 1;
+			position: relative;
+			// display: flex;
+			// justify-content: space-between;
+			width: 200px;
+			max-width: 200px;
+			padding: 7px 15px;
+			border-radius: 5px 5px 0 0;
+			background-color: #ffffff;
+			cursor: pointer;
+			user-select: none;
+			font-size: 12px;
+			p {
+				width: calc(100% - 10px);
+				white-space: nowrap; /* 确保文本在一行内显示 */
+				overflow: hidden; /* 隐藏超出容器的文本 */
+				text-overflow: ellipsis; /* 使用省略符号表示被截断的文本 */
+			}
+			i {
+				position: absolute;
+				right: 15px;
+				top: 7px;
+				&:hover {
+					background-color: #e5e5e5;
+				}
+			}
+			&.active {
+				background-color: #f4f4f4;
+				border-radius: 5px;
+				&:nth-child(1) {
+					border-bottom-left-radius: 0px;
+				}
+				&:nth-last-child(1) {
+					border-bottom-right-radius: 0;
+				}
+			}
+		}
+	}
+	.right-btn {
+		display: flex;
+		min-width: 120px;
+		height: 100%;
+		position: absolute;
+		top: 0;
+		right: 0;
 
-  .right-btn {
-    display: flex;
-    width: 120px;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    right: 0;
+		.close,
+		.maximize,
+		.minimize {
+			user-select: none;
+			flex: 1;
+			transition: 0.46s;
 
-    .close,
-    .maximize,
-    .minimize {
-      user-select: none;
-      flex: 1;
-      transition: 0.46s;
+			&:hover {
+				background-color: #e5e5e5;
+			}
+		}
 
-      &:hover {
-        background-color: #e5e5e5;
-      }
-    }
-
-    .close {
-      &:hover {
-        background-color: #e81123;
-        color: #fff;
-      }
-    }
-  }
+		.close {
+			&:hover {
+				background-color: #e81123;
+				color: #fff;
+			}
+		}
+	}
+	::-webkit-scrollbar {
+		width: 0;
+		height: 0;
+		// border-radius: 4px;
+	}
+	::-webkit-scrollbar-button {
+		height: 0;
+		width: 0;
+	}
+	::-webkit-scrollbar-corner {
+		background-color: transparent;
+	}
+	::-webkit-scrollbar-thumb {
+		border-radius: 4px;
+		background-color: rgba(144, 147, 153, 0.3);
+	}
+	::-webkit-scrollbar-track {
+		background-color: transparent;
+	}
+	::-webkit-scrollbar-track-piece {
+		background-color: transparent;
+	}
 }

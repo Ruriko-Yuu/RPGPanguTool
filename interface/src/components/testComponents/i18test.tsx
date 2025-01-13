@@ -3,7 +3,7 @@ import { memo } from "react";
 import { Component } from "react";
 import { useTranslation } from "react-i18next";
 import { withTranslation, WithTranslation } from "react-i18next";
-import i18n from "../../i18n";
+import i18n from "../../../i18n";
 export const FunComponentExample = memo(() => {
   const { t } = useTranslation();
   return (

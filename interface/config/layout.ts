@@ -1,3 +1,3 @@
 export const electronMenulayoutConfig = {
-  height: 30,
+  height: 40,
 };
