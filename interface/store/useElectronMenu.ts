@@ -1,7 +1,10 @@
 import { create, StoreApi, UseBoundStore } from 'zustand'
 import { persist, createJSONStorage } from 'zustand/middleware';
-
-const useElectronMenuStore: UseBoundStore<StoreApi<any>> = create(persist((set) => {
+type TAB_TYPE = { title: string, router: string, [key: string]: string };
+const useElectronMenuStore: UseBoundStore<StoreApi<{
+  tabList: Array<TAB_TYPE>,
+  [key: string]: any
+}>> = create(persist((set) => {
   return {
     tabList: [
       {
@@ -19,9 +22,14 @@ const useElectronMenuStore: UseBoundStore<StoreApi<any>> = create(persist((set) 
         tabActive: state.tabList.length
       }
     }),
-    editTab: (value: any) => set((state: any) => {
+    /**
+     * 修改tab数据
+     * @param value 新的tab数据
+     * @returns 
+     */
+    editTab: (value: TAB_TYPE) => set((state: any) => {
       const tabList = state.tabList
-      tabList[0] = value
+      tabList[state.tabActive] = value
       return {
         tabList: [...tabList]
       }
