@@ -5,6 +5,7 @@ const path = require("path");
 const isDev = require("electron-is-dev");
 process.env["ELECTRON_DISABLE_SECURITY_WARNINGS"] = "true";
 const ipcInit = require("./ipc/init")
+const ipcFile = require("./ipc/file")
 /**
  * 窗口移动
  * @param win
@@ -71,6 +72,7 @@ function createWindow() {
   windowMove(mainWindow);
   console.log('⚓', 'ipc init')
   ipcInit(mainWindow)
+  ipcFile()
 }
 (app as any).allowRendererProcessReuse = true;
 

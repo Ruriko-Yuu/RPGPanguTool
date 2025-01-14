@@ -19,6 +19,13 @@ const useElectronMenuStore: UseBoundStore<StoreApi<any>> = create(persist((set) 
         tabActive: state.tabList.length
       }
     }),
+    editTab: (value: any) => set((state: any) => {
+      const tabList = state.tabList
+      tabList[0] = value
+      return {
+        tabList: [...tabList]
+      }
+    }),
     setFullScreen: (value: boolean) => set((state: any) => ({ fullScreen: value })),
     setTabActive: (value: number) => set((state: any) => ({
       tabActive: value

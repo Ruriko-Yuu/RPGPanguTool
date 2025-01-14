@@ -10,10 +10,27 @@ const App: React.FC = () => {
 			router: "/project",
 		});
 		navigate("/project");
-	};
+  };
+  React.useEffect(() => {
+		useElectronMenuStore.getState().editTab({
+		  title: '首页',
+		  router: '/'
+		})
+	}, []);
 	return (
 		<>
 			<p onClick={newWorld}>newWorld</p>
+			<p
+				onClick={() =>
+					window.Electron.ipcRenderer.send("saveFile", {
+						path: "alll/asdas/save.json",
+						data: { ahh: 1 },
+					})
+				}
+			>
+				保存文件
+      </p>
+      <Link to="/setting">设置</Link>
 		</>
 	);
 };

@@ -1,16 +1,16 @@
 import { Outlet } from "react-router-dom";
-import ProjectPage from "../../src/pages/project";
+import SettingPage from "../../src/pages/setting";
 import Layout from "../../layout";
 
 const RouterCoding = {
-  path: "/project",
+  path: "/setting",
   element: Outlet,
-  handle: {title: '项目'},
+  handle: {title: '设置'},
   children: [
     {
       path: "",
-      handle: {title: '项目'},
-      element: ProjectPage,
+      handle: {title: '设置'},
+      element: SettingPage,
       layout: Layout
     },
   ],

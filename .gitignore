@@ -7,11 +7,14 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+rpgp.config.json
+
 node_modules
 dist
 dist-ssr
 dist-electron
 dist-interface
+save
 release
 *.local
 
