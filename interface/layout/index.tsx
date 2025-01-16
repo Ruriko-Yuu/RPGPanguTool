@@ -1,14 +1,21 @@
 import React, { PropsWithChildren, useState } from "react";
 import ElectronMenu from "../src/components/menu/electronMenu";
-const App: React.FC<PropsWithChildren<any>> = (props: PropsWithChildren<{
-  children: any;
-}>) => {
+import "./index.scss";
+
+const App: React.FC<PropsWithChildren<any>> = (
+	props: PropsWithChildren<{
+		children: any;
+	}>
+) => {
 	/** 主题 */ const [theme, setTheme] = useState("custom");
 	const env = window.Electron === void 0 ? "b" : "w";
 	return (
-		<div className={theme === "custom" ? "custom-theme" : theme}>
+		<div
+			id="default-layout"
+			className={`${theme === "custom" ? "custom-theme" : theme}`}
+		>
 			{env === "w" && <ElectronMenu />}
-			{props.children}
+			<div className={`${env === "w" ? "menu-children" : "all-children"}`}>{props.children}</div>
 		</div>
 	);
 };

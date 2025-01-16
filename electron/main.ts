@@ -59,6 +59,7 @@ function createWindow() {
       preload: path.join(__dirname, "script/preload.js"),
       nodeIntegration: true,
       contextIsolation: false, // 禁用上下文隔离
+      spellcheck: false // 关闭拼写检查
     },
   });
   if (isDev) {

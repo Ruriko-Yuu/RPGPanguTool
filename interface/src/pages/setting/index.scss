@@ -1,0 +1,25 @@
+#setting-page {
+  min-width: 800px;
+	padding: 10px;
+  font-size: 14px;
+	.page-title {
+		font-size: 24px;
+	}
+	.setting-row {
+		display: flex;
+		padding: 10px 0;
+		.row-title {
+			width: 7em;
+			min-width: 7em;
+			color: #777777;
+		}
+		.row-content {
+			margin-left: 10px;
+			flex: 1;
+			button,
+			input {
+				margin-right: 8px;
+			}
+		}
+	}
+}

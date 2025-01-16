@@ -1,0 +1,12 @@
+#default-layout {
+	height: 100vh;
+	width: 100vw;
+	.menu-children {
+		height: calc(100% - 40px);
+    overflow: auto;
+	}
+	.all-children {
+    height: 100%;
+    overflow: auto;
+	}
+}

@@ -1,5 +1,6 @@
-const fs = require('fs');
 import { CONFIG_DEFAULT } from "../azure/k"
+const fs = require('fs');
+const path = require('path');
 module.exports = (mainWindow: Electron.CrossProcessExports.BrowserWindow) => {
   const electron = require("electron");
   const { app, BrowserWindow, ipcMain } = electron;
@@ -12,13 +13,13 @@ module.exports = (mainWindow: Electron.CrossProcessExports.BrowserWindow) => {
             if (err) {
               console.error(err);
             }
-            console.log('写入成功!');
+            console.log('配置文件初始化!');
           })
           resolve(CONFIG_DEFAULT.defaultFilePath)
+        } else {
+          const jsonData = JSON.parse(data);
+          resolve(jsonData.defaultFilePath)
         }
-
-        const jsonData = JSON.parse(data);
-        resolve(jsonData.defaultFilePath)
       });
     })
   }
@@ -35,32 +36,80 @@ module.exports = (mainWindow: Electron.CrossProcessExports.BrowserWindow) => {
     const pathNameList = pathName.split('/')
     const filePath = pathNameList.slice(0, pathNameList.length - 1).join('/')
     const fileName = pathNameList[pathNameList.length - 1]
+    console.log("🚀 ~ ipcMain.on ~ filePath:", filePath, basePath)
     fs.mkdir(filePath, { recursive: true }, (err: any) => {
       if (err) {
         console.log(err.message);
         return;
       }
+      fs.writeFile(pathName, str, function (err: any) {
+        if (err) {
+          console.error(err);
+          return
+        }
+        console.log(`${fileName}文件已保存至${filePath}文件夹`)
+      })
     })
-    fs.writeFile(pathName, str, function (err: any) {
-      if (err) {
-        console.error(err);
-      }
-    })
-
   })
 
   /** 监听 ipc 事件，打开选择文件夹的对话框 */
-  ipcMain.on('open-folder-dialog', (event) => {
+  ipcMain.on('changeDefaultFilePath', (event) => {
     electron.dialog.showOpenDialog({
       properties: ['openDirectory']
-    }).then(result => {
+    }).then(async result => {
       if (!result.canceled) {
         // 发送选中的文件夹路径到渲染进程
-        // event.sender.send('selected-folder', result.filePaths[0]);
-        console.log(result.filePaths[0].replace(/\\/g, '/'))
+        const filePathS = result.filePaths[0].replace(/\\/g, '/')
+        const filePath = filePathS + (filePathS[filePathS.length - 1] === '/' ? '' : '/')
+        console.log(filePath)
+        // 要检查的文件夹路径
+        // const folderPath = path.join(__dirname, filePath);
+        // 检查文件夹是否可写
+        try {
+          fs.accessSync(filePath, fs.constants.R_OK | fs.constants.W_OK);
+          console.log('can read/write', filePath);
+        } catch (err) {
+          console.error('no access!', filePath);
+        }
+        // await fs.promises.access(result.filePaths[0],fs.constants.X_OK, (err: any) => {
+        //   if (err) {
+        //     console.error(`没有权限写入文件夹: ${result.filePaths[0]}`);
+        //     return;
+        //   }
+        //   console.log(`有权限写入文件夹: ${result.filePaths[0]}`, filePath);
+        // });
+        fs.readFile('rpgp.config.json', 'utf8', (err: any, data: string) => {
+          const jsonData = JSON.parse(data);
+          jsonData.defaultFilePath = filePath
+          let str = JSON.stringify(jsonData, undefined, "\t");
+          fs.writeFile('./rpgp.config.json', str, function (err: any) {
+            if (err) {
+              console.error(err);
+            }
+          })
+          event.reply('getDefaultFilePath-reply', filePath)
+        });
       }
     }).catch(err => {
       console.error(err);
     });
   });
+
+  ipcMain.on('openFile', async (event, res) => {
+    const path = await getBasePath()
+    fs.readFile(path + res, 'utf8', (err: any, data: string) => {
+      if (data) {
+        const jsonData = JSON.parse(data);
+        event.reply(res, {
+          code: 200,
+          data: jsonData
+        })
+      } else {
+        event.reply(res, {
+          code: 400,
+          data: data
+        })
+      }
+    });
+  })
 }
