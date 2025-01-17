@@ -101,6 +101,9 @@ module.exports = {
     hot: true,
     open: false,
     port: 8888,
-    // contentBase: '../dist'
+    static: {
+      directory: path.join(__dirname, '../interface/static'),
+      // publicPath: '/static',
+    },
   },
 };

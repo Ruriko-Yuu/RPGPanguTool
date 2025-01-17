@@ -32,7 +32,7 @@ module.exports = (mainWindow: Electron.CrossProcessExports.BrowserWindow) => {
   /** 开启看板模式 */
   ipcMain.on("kanban-on", (event, res) => {
     size = mainWindow.getSize()
-    mainWindow.setSize(225, 355, true)
+    mainWindow.setSize(256, 256, true)
     // 看板模式下禁用窗口缩放
     mainWindow.setResizable(false)
     // 设置窗口始终在顶部

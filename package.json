@@ -33,6 +33,8 @@
     "lottie-react": "^2.4.0",
     "mini-css-extract-plugin": "^2.7.6",
     "msgpack-lite": "^0.1.26",
+    "pixi-live2d-display": "^0.4.0",
+    "pixi.js": "^6.4.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-i18next": "^13.0.2",
