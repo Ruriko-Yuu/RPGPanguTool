@@ -47,7 +47,8 @@ const App: React.FC = () => {
 				color: 0xff0000,
 				action: () => {
 					console.log("Home clicked!");
-					app.stage.removeChild(menuContainer);
+          app.stage.removeChild(menuContainer);
+          app.destroy(true)
 					setTimeout(() => {
 						window.Electron.ipcRenderer.send("kanban-off");
 						navigate("/project");
