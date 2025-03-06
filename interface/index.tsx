@@ -7,7 +7,7 @@ const container = document.getElementById("react");
 const root = createRoot(container);
 window.echo = console.info;
 root.render(
-	<React.StrictMode>
+	// <React.StrictMode>
 		<Route />
-	</React.StrictMode>
+	// </React.StrictMode>
 );

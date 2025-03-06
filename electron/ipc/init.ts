@@ -43,7 +43,8 @@ module.exports = (mainWindow: Electron.CrossProcessExports.BrowserWindow) => {
   ipcMain.on("kanban-off", (event, res) => {
     mainWindow.setAlwaysOnTop(false);
     mainWindow.setResizable(true)
-    mainWindow.setSize(size[0], size[1], true)
+    setTimeout(() => { mainWindow.setSize(size[0], size[1], true) }, 1000)
+    console.log("🚀 ~ ipcMain.on ~ size[0], size[1]:", size[0], size[1])
   })
 
   /** 看板状态下鼠标穿透 */

@@ -62,7 +62,7 @@
 		position: absolute;
 		top: 0;
 		right: 0;
-
+    a,
 		.close,
 		.maximize,
 		.minimize {
@@ -74,7 +74,11 @@
 				background-color: #e5e5e5;
 			}
 		}
-
+    a {
+      .x-flex {
+        height: 100%;
+      }
+    }
 		.close {
 			&:hover {
 				background-color: #e81123;

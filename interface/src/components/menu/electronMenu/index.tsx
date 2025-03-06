@@ -49,8 +49,14 @@ const ElectronMenu = memo(() => {
 		window.Electron.ipcRenderer.on("fullscreen-reply", fullscreenReply);
 		window.Electron.ipcRenderer.on("unFullscreen-reply", unFullscreenReply);
 		return () => {
-			window.Electron.ipcRenderer.removeListener("fullscreen-reply", fullscreenReply);
-			window.Electron.ipcRenderer.removeListener("unFullscreen-reply", unFullscreenReply);
+			window.Electron.ipcRenderer.removeListener(
+				"fullscreen-reply",
+				fullscreenReply
+			);
+			window.Electron.ipcRenderer.removeListener(
+				"unFullscreen-reply",
+				unFullscreenReply
+			);
 		};
 	}, []);
 	return (
@@ -79,11 +85,15 @@ const ElectronMenu = memo(() => {
 									if (useElectronMenuStore.getState().tabActive === idx) {
 										useElectronMenuStore.getState().setTabActive(idx - 1);
 										navigate(tabList[idx - 1].router);
-                  }
-                  if (idx < useElectronMenuStore.getState().tabActive) {
-                    useElectronMenuStore.getState().setTabActive(useElectronMenuStore.getState().tabActive - 1);
-                  }
-                  useElectronMenuStore.getState().delTab(idx);
+									}
+									if (idx < useElectronMenuStore.getState().tabActive) {
+										useElectronMenuStore
+											.getState()
+											.setTabActive(
+												useElectronMenuStore.getState().tabActive - 1
+											);
+									}
+									useElectronMenuStore.getState().delTab(idx);
 									console.log(useElectronMenuStore.getState().tabList);
 								}}
 							>
@@ -96,6 +106,9 @@ const ElectronMenu = memo(() => {
 				))}
 			</div>
 			<div className="right-btn">
+				<Link to="/float">
+					<div className="x-flex">📌</div>
+				</Link>
 				<div
 					className="minimize x-flex"
 					onClick={() => {
