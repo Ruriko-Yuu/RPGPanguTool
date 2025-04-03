@@ -23,16 +23,16 @@ module.exports = (mainWindow: Electron.CrossProcessExports.BrowserWindow) => {
       });
     })
   }
-  ipcMain.on('getDefaultFilePath', async (event, res) => {
+  ipcMain.on('getDefaultFilePath', async (event: { reply: (arg0: string, arg1: unknown) => void; }, res: any) => {
     const path = await getBasePath()
     event.reply('getDefaultFilePath-reply', path)
   })
 
   /** 保存文件 */
-  ipcMain.on("saveFile", async (event, res) => {
+  ipcMain.on("saveFile", async (event: any, res: { data: any; path: string | number; }) => {
     const basePath = await getBasePath();
     let str = JSON.stringify(res.data, undefined, "\t");
-    const pathName = basePath + res.path
+    const pathName = basePath + `${res.path}`
     const pathNameList = pathName.split('/')
     const filePath = pathNameList.slice(0, pathNameList.length - 1).join('/')
     const fileName = pathNameList[pathNameList.length - 1]
@@ -53,10 +53,10 @@ module.exports = (mainWindow: Electron.CrossProcessExports.BrowserWindow) => {
   })
 
   /** 监听 ipc 事件，打开选择文件夹的对话框 */
-  ipcMain.on('changeDefaultFilePath', (event) => {
+  ipcMain.on('changeDefaultFilePath', (event: { reply: (arg0: string, arg1: string) => void; }) => {
     electron.dialog.showOpenDialog({
       properties: ['openDirectory']
-    }).then(async result => {
+    }).then(async (result: { canceled: any; filePaths: string[]; }) => {
       if (!result.canceled) {
         // 发送选中的文件夹路径到渲染进程
         const filePathS = result.filePaths[0].replace(/\\/g, '/')
@@ -90,14 +90,14 @@ module.exports = (mainWindow: Electron.CrossProcessExports.BrowserWindow) => {
           event.reply('getDefaultFilePath-reply', filePath)
         });
       }
-    }).catch(err => {
+    }).catch((err: any) => {
       console.error(err);
     });
   });
 
-  ipcMain.on('openFile', async (event, res) => {
+  ipcMain.on('openFile', async (event: { reply: (arg0: any, arg1: { code: number; data: any; }) => void; }, res: string | number) => {
     const path = await getBasePath()
-    fs.readFile(path + res, 'utf8', (err: any, data: string) => {
+    fs.readFile(path + `${res}`, 'utf8', (err: any, data: string) => {
       if (data) {
         const jsonData = JSON.parse(data);
         event.reply(res, {

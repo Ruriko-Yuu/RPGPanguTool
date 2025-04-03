@@ -21,7 +21,7 @@ function windowMove(win: {
   /**
    * 窗口移动事件
    */
-  ipcMain.on("window-move-open", (events, canMoving) => {
+  ipcMain.on("window-move-open", (events: any, canMoving: any) => {
     if (canMoving) {
       // 读取原位置
       const winPosition = win.getPosition();

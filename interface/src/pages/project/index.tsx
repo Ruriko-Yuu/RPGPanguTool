@@ -4,8 +4,10 @@ import { Menu } from "antd";
 import React, { useState } from "react";
 import { electronMenulayoutConfig } from "../../../config/layout";
 import menuConifg from "../../../layout/index.json";
-import { I18Example } from "../../components/testComponents/i18test";
 import "./index.scss";
+
+import MapComponent from "./map";
+
 type MenuItem = Required<MenuProps>["items"][number];
 /** 获取菜单项 */
 function getItem(
@@ -81,7 +83,8 @@ const App: React.FC = () => {
 					width: `calc(100% - ${collapsed ? collapsedWidth : unfoldWidth}px)`,
 				}}
 			>
-				{/* <I18Example /> */}{selectKey}
+				{/* <I18Example /> */}
+				{selectKey === "map" && <MapComponent />}
 			</div>
 		</div>
 	);
