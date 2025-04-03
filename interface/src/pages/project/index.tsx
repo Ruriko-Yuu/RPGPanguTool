@@ -1,12 +1,12 @@
-import React, { useState } from "react";
-import menuConifg from "../../../layout/index.json";
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
 import type { MenuProps } from "antd";
 import { Menu } from "antd";
-import { I18Example } from "../../components/testComponents/i18test";
-type MenuItem = Required<MenuProps>["items"][number];
+import React, { useState } from "react";
 import { electronMenulayoutConfig } from "../../../config/layout";
-
+import menuConifg from "../../../layout/index.json";
+import { I18Example } from "../../components/testComponents/i18test";
+import "./index.scss";
+type MenuItem = Required<MenuProps>["items"][number];
 /** 获取菜单项 */
 function getItem(
 	label: React.ReactNode,
@@ -33,13 +33,19 @@ const creatrMenuItems = (list: Array<any>): MenuItem[] => {
 /** 小菜单宽度 */ const collapsedWidth = 80;
 /** 大菜单宽度 */ const unfoldWidth = 256;
 const App: React.FC = () => {
+	const [selectKey, setSelectKey] = useState("hunmenList");
 	const [collapsed, setCollapsed] = useState(false);
 	const env = window.Electron === void 0 ? "b" : "w";
 	const toggleCollapsed = () => {
 		setCollapsed(!collapsed);
 	};
+	const menuOnSelect = (e: { key: React.SetStateAction<string> }) => {
+		console.log("onSelect", e);
+		setSelectKey(e.key);
+	};
 	return (
 		<div
+			id="project"
 			className="flex"
 			style={{
 				height:
@@ -62,11 +68,12 @@ const App: React.FC = () => {
 				</div>
 				<Menu
 					key={`${collapsed}`}
-					defaultSelectedKeys={["map2"]}
-					defaultOpenKeys={collapsed ? [] : ["map", "map2"]}
+					defaultSelectedKeys={["hunmenList"]}
+					defaultOpenKeys={collapsed ? [] : ["hunmen"]}
 					mode="inline"
 					inlineCollapsed={collapsed}
 					items={items}
+					onSelect={menuOnSelect}
 				/>
 			</div>
 			<div
@@ -74,7 +81,7 @@ const App: React.FC = () => {
 					width: `calc(100% - ${collapsed ? collapsedWidth : unfoldWidth}px)`,
 				}}
 			>
-        <I18Example />
+				{/* <I18Example /> */}{selectKey}
 			</div>
 		</div>
 	);

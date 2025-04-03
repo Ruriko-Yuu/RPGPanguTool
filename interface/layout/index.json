@@ -1,21 +1,29 @@
 [
   {
-    "title": "菜单1",
-    "key": "menu1",
+    "title": "人物",
+    "key": "hunmen",
     "ico": null,
     "children": [
       {
-        "title": "菜单1-1",
-        "key": "menu1-1",
-        "ico": null,
-        "children": [
-          {
-            "title": "地图1-1-1",
-            "key": "menu1-1-1",
-            "ico": null
-          }
-        ]
+        "title": "列表",
+        "key": "hunmenList",
+        "ico": null
+      },
+      {
+        "title": "草稿",
+        "key": "hunmenDraft",
+        "ico": null
+      },
+      {
+        "title": "回收站",
+        "key": "hunmenRecycleBin",
+        "ico": null
       }
     ]
+  },
+  {
+    "title": "地图",
+    "key": "map",
+    "ico": null
   }
 ]

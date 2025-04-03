@@ -25,7 +25,7 @@ const App: React.FC = () => {
 	}, []);
 	return (
 		<div id="home-page">
-			<p onClick={newWorld}>newWorld</p>
+			<p onClick={newWorld}>创建世界</p>
 			<p
 				onClick={() =>
 					window.Electron.ipcRenderer.send("saveFile", {
@@ -34,8 +34,18 @@ const App: React.FC = () => {
 					})
 				}
 			>
-				保存数据
+				[test]保存数据
       </p>
+			<p
+				onClick={async () => {
+					try {
+						const data = await getData("alll/asdas/save.json");
+						console.log("🚀 ~ data:", data);
+					} catch (error) {}
+				}}
+			>
+				[test]获取数据
+			</p>
       <Link
 				to="/float"
       >
@@ -60,16 +70,6 @@ const App: React.FC = () => {
 				/>
 				设置
 			</Link>
-			<p
-				onClick={async () => {
-					try {
-						const data = await getData("alll/asdas/save.json");
-						console.log("🚀 ~ data:", data);
-					} catch (error) {}
-				}}
-			>
-				获取数据
-			</p>
 		</div>
 	);
 };
