@@ -96,15 +96,22 @@ module.exports = (mainWindow: Electron.CrossProcessExports.BrowserWindow) => {
   });
 
   ipcMain.on('openFile', async (event: { reply: (arg0: any, arg1: { code: number; data: any; }) => void; }, res: string | number) => {
-    const path = await getBasePath()
+    const path = `${res}`.indexOf(`:\\`) ? await getBasePath() : ''
     fs.readFile(path + `${res}`, 'utf8', (err: any, data: string) => {
-      if (data) {
-        const jsonData = JSON.parse(data);
-        event.reply(res, {
-          code: 200,
-          data: jsonData
-        })
-      } else {
+      try {
+        if (data) {
+          const jsonData = JSON.parse(data);
+          event.reply(res, {
+            code: 200,
+            data: jsonData
+          })
+        } else {
+          event.reply(res, {
+            code: 400,
+            data: data
+          })
+        }
+      } catch (error) {
         event.reply(res, {
           code: 400,
           data: data

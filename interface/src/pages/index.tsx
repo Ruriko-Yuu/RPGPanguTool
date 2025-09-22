@@ -5,7 +5,8 @@ import { getData } from "../../api";
 import Lottie from "lottie-react";
 import settingAnimation from "../../assets/icon/setting.json";
 import { useRef } from "react";
-import "./index.scss"
+import "./index.scss";
+import SpineBlock from "../components/spine/index";
 const App: React.FC = () => {
 	const lottieRef = useRef(null);
 	const navigate = useNavigate();
@@ -25,6 +26,7 @@ const App: React.FC = () => {
 	}, []);
 	return (
 		<div id="home-page">
+			<SpineBlock />
 			<p onClick={newWorld}>创建世界</p>
 			<p
 				onClick={() =>
@@ -35,7 +37,7 @@ const App: React.FC = () => {
 				}
 			>
 				[test]保存数据
-      </p>
+			</p>
 			<p
 				onClick={async () => {
 					try {
@@ -46,11 +48,7 @@ const App: React.FC = () => {
 			>
 				[test]获取数据
 			</p>
-      <Link
-				to="/float"
-      >
-        悬浮窗
-			</Link>
+			<Link to="/float">悬浮窗</Link>
 			<Link
 				to="/setting"
 				style={{ display: "inline-flex", alignItems: "center" }}
